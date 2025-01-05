@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* Aplicar a fonte Inter em todo o documento */
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #1e3a5f;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.5;
+}
+
+/* Cabeçalho */
+.header {
+  width: 100%;
+  background-color: #324a7a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+}
+
+/* Container de edição */
+.edit-container {
+  background-color: #324a7a;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 30px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.edit-container h1 {
+  text-align: center;
+  color: #1e90ff;
+  margin-bottom: 20px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+}
+
+.edit-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.edit-container label {
+  font-weight: 500;
+  color: #dbe3f0;
+  margin-bottom: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Estilo dos inputs e textarea */
+.edit-container input[type="text"],
+.edit-container input[type="date"],
+.edit-container input[type="number"],
+.edit-container textarea,
+.edit-container select,
+.edit-container input[type="file"] {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #5c6d8a;
+  border-radius: 5px;
+  font-size: 15px;
+  color: #ffffff;
+  background-color: #2d3e50;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Efeito ao focar */
+.edit-container input[type="text"]:focus,
+.edit-container input[type="date"]:focus,
+.edit-container input[type="number"]:focus,
+.edit-container textarea:focus,
+.edit-container select:focus,
+.edit-container input[type="file"]:focus {
+  border-color: #1e90ff;
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
+}
+
+/* Textarea */
+.edit-container textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+/* Botões */
+.edit-container button[type="submit"],
+.edit-container button[type="button"] {
+  padding: 12px;
+  background-color: #1e90ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+  font-family: 'Inter', sans-serif;
+}
+
+.edit-container button[type="submit"]:hover,
+.edit-container button[type="button"]:hover {
+  background-color: #1c86ee;
+}
+
+/* Botão de desfazer */
+#undo-button {
+  background-color: #ff6347;
+}
+
+#undo-button:hover {
+  background-color: #ff4500;
+}
+
+/* Pré-visualização da imagem */
+.image-preview {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.image-preview img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #ffffff;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .edit-container {
+    padding: 20px;
+  }
+
+  .image-preview {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .image-preview img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+}
+

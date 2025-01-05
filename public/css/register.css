@@ -1,0 +1,188 @@
+/* Estilos Gerais do Register com a temática do Login */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    background-color: #1e3a5f;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a5f, #2a5298);
+    padding-top: 20px; /* Adiciona um pequeno espaçamento do topo */
+}
+
+.container {
+    background-color: #324a7a;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Reduzido */
+    width: 100%;
+    max-width: 400px;
+    transition: transform 0.2s ease; /* Tempo reduzido */
+}
+
+.container:hover {
+    transform: scale(1.01); /* Reduzido */
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: 500;
+}
+
+.form-group {
+    margin-bottom: 18px; /* Menor espaçamento entre os campos */
+}
+
+label {
+    display: block;
+    margin-bottom: 6px; /* Espaçamento ajustado para harmonizar com o campo */
+    font-weight: 500;
+    color: #dbe3f0;
+    font-size: 0.9em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+    background-color: #3e577e;
+    color: #ffffff;
+    box-sizing: border-box;
+    font-size: 15px;
+    outline: none;
+    transition: border 0.3s ease;
+    margin-bottom: 18px; /* Ajusta o espaçamento entre os campos */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: #1e90ff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #1e90ff;
+    border: none;
+    border-radius: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1em;
+    margin-top: 15px; /* Melhor espaçamento para o botão */
+}
+
+button:hover {
+    background-color: #1c86ee;
+}
+
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    font-size: 0.95em;
+}
+
+.login-link:hover {
+    color: #63a4ff;
+}
+
+/* Ajustes para os campos de "Estado" e "Gênero" */
+select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+    background-color: #3e577e;
+    color: #ffffff;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border 0.3s ease;
+    margin-bottom: 18px; /* Ajusta o espaçamento entre o campo de "Estado" e "Gênero" */
+}
+
+select:focus {
+    border-color: #1e90ff;
+}
+
+label[for="estado"],
+label[for="genero"] {
+    margin-top: 10px; /* Espaço extra para os novos campos */
+}
+
+button[type="submit"] {
+    margin-top: 15px; /* Adiciona espaçamento acima do botão */
+}
+
+/* Estilo para o select de tipo de cadastro */
+#tipo {
+    margin-bottom: 18px; /* Ajuste do espaçamento entre o campo de tipo de cadastro */
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+    background-color: #3e577e;
+    color: #ffffff;
+    font-size: 15px;
+}
+
+/* Adicionando espaçamento interno para o form-container */
+.form-container {
+    padding: 10px;
+}
+
+/* Ajuste para os links de navegação */
+p {
+    text-align: center;
+    color: #dbe3f0;
+    margin-top: 20px; /* Espaço antes dos links */
+}
+
+p a {
+    color: #1e90ff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    color: #63a4ff;
+}
+
+/* Estilo para a Logo */
+.logo {
+    display: block;
+    margin: 0 auto 20px; /* Centraliza a logo e adiciona espaçamento embaixo */
+    width: 75px; /* Definindo o tamanho fixo para a logo */
+    height: auto; /* Mantém a proporção original */
+    transition: transform 0.3s ease;
+}
+
+/* Efeito de hover para a logo */
+.logo:hover {
+    transform: scale(1.1); /* Aumenta levemente o tamanho da logo quando o usuário passar o mouse */
+}
+
+
+
+

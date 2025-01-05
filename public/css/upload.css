@@ -1,0 +1,128 @@
+/* Styles for Upload Page - Modern Blue Theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1e3a5f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a5f, #2a5298);
+}
+
+.container {
+    background-color: #324a7a;
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Reduzido */
+    border-radius: 15px;
+    width: 350px;
+    transition: transform 0.2s ease; /* Tempo reduzido */
+    /* Removido text-align: center; para evitar centralização geral */
+}
+
+.container:hover {
+    transform: scale(1.01); /* Reduzido */
+}
+
+.logo {
+    display: block; /* Faz com que a imagem seja tratada como um bloco */
+    margin: 0 auto 20px; /* Centraliza a imagem com margem inferior */
+    max-width: 75px; /* Define uma largura máxima para a logo */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+/* Estilo específico para o título de cadastro */
+.cadastro-title {
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 500;
+    text-align: center; /* Garante que o título esteja centralizado */
+}
+
+h2 {
+    color: #ffffff; /* Define a cor padrão para outros h2 */
+    margin-bottom: 15px; /* Define uma margem inferior padrão */
+    font-weight: 500; /* Define um peso de fonte padrão */
+    text-align: left; /* Alinha os demais h2 à esquerda */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para os rótulos */
+label {
+    margin-bottom: 5px;
+    color: #dbe3f0;
+}
+
+/* Estilos para os campos de entrada */
+input[type="file"],
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #3e577e;
+    color: #ffffff;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+/* Foco nos campos de entrada */
+input[type="file"]:focus,
+input[type="text"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus {
+    border: 1px solid #1e90ff;
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+    color: #a9b2c3;
+}
+
+/* Estilo do botão de envio */
+input[type="submit"] {
+    background-color: #1e90ff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover no botão de envio */
+input[type="submit"]:hover {
+    background-color: #1c86ee;
+}
+
+/* Estilo para a pré-visualização da imagem */
+#preview {
+    margin: 15px 0;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+}
+
+/* Estilo para mensagens de erro, se necessário */
+#error-message {
+    margin-bottom: 20px;
+    color: #ff6f61;
+    text-align: center;
+    font-weight: bold;
+}
+
+

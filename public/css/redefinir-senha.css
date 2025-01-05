@@ -1,0 +1,96 @@
+/* Estilos para a página de Redefinir Senha - Tema Azul Moderno */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1e3a5f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #1e3a5f, #2a5298);
+}
+
+.container {
+    background-color: #324a7a;
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    width: 350px;
+    transition: transform 0.2s ease;
+}
+
+.container:hover {
+    transform: scale(1.01);
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    color: #dbe3f0;
+}
+
+input[type="email"],
+input[type="password"] {
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #5a6e96;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: #3e577e;
+    color: #ffffff;
+    outline: none;
+    transition: border 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border: 1px solid #1e90ff;
+}
+
+input::placeholder {
+    color: #a9b2c3;
+}
+
+button {
+    background-color: #1e90ff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #1c86ee;
+}
+
+a {
+    text-decoration: none;
+    color: #1e90ff;
+    text-align: center;
+    display: block;
+    margin-top: 20px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #63a4ff;
+}

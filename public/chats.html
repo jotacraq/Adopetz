@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Images/Adopt 500x500.png" type="image/x-icon">
+    <title>Chat</title>
+    <link rel="stylesheet" href="css/chats.css">
+    <script src="js/chats.js" defer></script>
+</head>
+<body>
+
+    <!-- Botão de sair no canto superior esquerdo -->
+    <a href="catalogo.html" class="logout-button">
+        <img src="images/sair.png" alt="Voltar" class="logout-icon">
+    </a>
+
+    <!-- Container principal para o chat ocupando a tela inteira -->
+    <div class="chat-container">
+        <!-- Sidebar com lista de chats -->
+        <div class="chat-list">
+            <h2>Conversas</h2>
+            <ul id="chatList"></ul>
+        </div>
+
+        <!-- Área de conversa -->
+        <div class="chat-box">
+            <div id="chatHeader" class="chat-header">
+                <img id="animalImage" src="" alt="Imagem do Animal" class="animal-img">
+                <h3 id="chatTitle"></h3>
+                <!-- Botão de finalizar venda no header -->
+                <button id="finalizarVenda" class="finalizar-button">
+                    <img src="images/finalizar.png" alt="Concluir Adoção" class="finalizar-icon">
+                    <span>Concluir Adoção</span>
+                </button>
+                
+
+
+            </div>
+            <div id="messagesContainer" class="messages-container">
+                <!-- Mensagens do chat serão exibidas aqui -->
+            </div>
+            <div class="message-input">
+                <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
+                <button id="sendButton">Enviar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

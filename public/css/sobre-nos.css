@@ -1,0 +1,266 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* Reset básico */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+/* Estilos Globais */
+body {
+   background-color: #1e3a5f; /* Fundo em linha com o tema */
+   color: #dbe3f0; /* Branco para legibilidade */
+   font-family: 'Inter', sans-serif;
+   line-height: 1.6;
+}
+
+/* Cabeçalho */
+.cabecalho {
+   background-color: #324a7a; /* Cor alinhada ao tema */
+   padding: 1rem 0;
+}
+
+.container-cabecalho {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   width: 90%;
+   margin: 0 auto;
+}
+
+.logo {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   cursor: pointer;
+}
+
+.img-cabecalho {
+   width: 70px;
+   height: 70px;
+}
+
+.texto-logo {
+   font-size: 1.5rem;
+   font-weight: 600;
+   color: #dbe3f0; /* Cor mais clara para contraste */
+}
+
+.menu-nav {
+   display: flex;
+   gap: 1rem;
+}
+
+.lista-menu-nav {
+   list-style: none;
+   display: flex;
+   gap: 1rem;
+   margin: 0;
+   padding: 0;
+}
+
+.item-menu-nav a {
+   color: #dbe3f0; /* Branco */
+   text-decoration: none;
+   font-weight: 500;
+   padding: 0.5rem 1rem;
+   transition: background-color 0.3s ease;
+}
+
+.item-menu-nav a:hover {
+   color: #1e90ff; /* Azul Claro no hover */
+}
+
+/* Seção Sobre */
+.sessao-sobre {
+   text-align: center;
+   padding: 2rem 1rem;
+   background-color: #324a7a; /* Alinhado ao tema */
+   color: #dbe3f0; /* Texto branco */
+}
+
+.titulo-P-sobre {
+   font-size: 2.5rem;
+   font-weight: 600;
+   margin-bottom: 1rem;
+}
+
+.texto-sobre {
+   max-width: 800px;
+   margin: 0 auto;
+   font-size: 1rem;
+   line-height: 1.8;
+}
+
+/* Redes Sociais */
+.redes-sociais {
+   background-color: #f8f8f8; /* Cinza Claro */
+   padding: 2rem 1rem;
+   text-align: center;
+}
+
+.titulo-P-redes-sociais {
+   font-size: 2rem;
+   font-weight: 600;
+   margin-bottom: 1rem;
+   color: #003785; /* Azul Marinho */
+}
+
+.container-redes-sociais {
+   display: flex;
+   justify-content: center;
+   gap: 2rem;
+   flex-wrap: wrap;
+}
+
+.card-redes-sociais {
+   background-color: #ffffff; /* Branco */
+   padding: 1rem;
+   border-radius: 10px;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s ease;
+   text-align: center;
+   width: 150px;
+}
+
+.card-redes-sociais:hover {
+   transform: translateY(-5px);
+}
+
+.img-redes-sociais {
+   width: 32px;
+   height: 32px;
+   margin-bottom: 0.5rem;
+}
+
+.texto-card {
+   color: #003785; /* Azul Marinho */
+   font-weight: 500;
+}
+
+/* Texto Redes Sociais */
+.texto-redes-sociais {
+   max-width: 800px;
+   margin: 2rem auto 0;
+   font-size: 1rem;
+   line-height: 1.8;
+   color: #003785; /* Azul Marinho */
+}
+
+/* Localização */
+.localizacao {
+   background-color: #ffffff; /* Branco */
+   padding: 2rem 1rem;
+   text-align: center;
+}
+
+.titulo-P-localizacao {
+   font-size: 2rem;
+   font-weight: 600;
+   margin-bottom: 1rem;
+   color: #003785; /* Azul Marinho */
+}
+
+.teste {
+   width: 90%;
+   margin: 0 auto;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   border-radius: 10px;
+   overflow: hidden;
+}
+
+/* Mini Navbar */
+.mini-navbar {
+   display: none;  /* Inicialmente oculta */
+   position: absolute;
+   top: 60px;
+   right: 0;
+   background-color: #324a7a;
+   padding: 10px;
+   border-radius: 8px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+   z-index: 1000;
+}
+
+.mini-navbar ul {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+.mini-navbar ul li {
+   margin: 10px 0;
+}
+
+.mini-navbar ul li a {
+   color: #dbe3f0;
+   text-decoration: none;
+   padding: 10px;
+   display: block;
+   transition: background-color 0.3s ease;
+}
+
+.mini-navbar ul li a:hover {
+   background-color: #1e90ff;
+}
+
+/* Estilo para o perfil do usuário */
+.perfil-usuario {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   cursor: pointer;
+   padding: 0.5rem 1rem;
+   border-radius: 8px;
+   transition: background-color 0.3s, box-shadow 0.3s;
+   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.perfil-usuario:hover {
+   background-color: #1e90ff;
+   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.foto-usuario {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   border: 2px solid #dbe3f0; /* Bordar clara ao redor da imagem */
+}
+
+.nome-usuario {
+   color: #dbe3f0; /* Tom claro */
+   font-weight: 500;
+   font-size: 1rem;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+   .card-animais {
+       width: calc(33.33% - 20px);
+   }
+}
+
+@media (max-width: 768px) {
+   .container-info {
+       flex-direction: column;
+       text-align: center;
+   }
+
+   .card-animais {
+       width: calc(50% - 20px);
+   }
+
+   .menu-nav .lista-menu-nav {
+       flex-direction: column;
+       align-items: center;
+       gap: 10px;
+   }
+}
+
+@media (max-width: 480px) {
+   .card-animais {
+       width: 100%;
+   }
+}

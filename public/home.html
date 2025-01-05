@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Adote um Amigo - AdoPetz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="Images/Adopt 500x500.png" type="image/x-icon">
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="css/home.css">
+    <script src="js/index.js" defer></script>
+</head>
+
+<body>
+    <header class="cabecalho">
+        <div class="container-cabecalho">
+            <div class="logo">
+                <img class="img-cabecalho" src="Images/Adopt 500x500.png" alt="Logo AdoPetz">
+                <h2 class="texto-logo">AdoPetz</h2>
+            </div>
+            <nav class="menu-nav">
+                <ul class="lista-menu-nav">
+                    <li class="item-menu-nav"><a href="home.html">Início</a></li>
+                    <li class="item-menu-nav"><a href="catalogo.html">Adoção</a></li>
+                    <li class="item-menu-nav"><a href="login.html">Login</a></li>
+                    <li class="item-menu-nav"><a href="sobre-nos.html">Sobre Nós</a></li>
+                </ul>
+            </nav>
+            <!-- Seção de perfil do usuário -->
+            <div class="perfil-usuario" onclick="toggleMiniNavbar()">
+                <img class="foto-usuario" src="Images/cliente.png" alt="Foto do Usuário">
+                <span class="nome-usuario">Usuário</span>
+            </div>
+
+            <!-- Mini navbar que será exibida ao clicar no perfil -->
+            <div class="mini-navbar" id="mini-navbar">
+                <ul>
+                    <li><a href="perfil.html">Exibir Perfil</a></li>
+                    <li><a href="#" id="logout-btn" onclick="logout()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo-principal">
+        <!-- Seção de Introdução -->
+        <section class="info">
+            <div class="container-info">
+                <div class="conteudo-texto-info">
+                    <h1 class="titulo-P-info">Conheça seu novo amigo!</h1>
+                    <p class="texto-info">Encontre o companheiro ideal para sua família. Temos diversos animais esperando por um lar amoroso.</p>
+                    <a href="catalogo.html" class="btn-adote">Adote Agora</a>
+                </div>
+                <img class="ilustracao-info" src="Images/undraw_cat_epte (1).svg" alt="Ilustração de adoção">
+            </div>
+        </section>
+
+        <!-- Seção de Animais -->
+        <section class="animais">
+            <h2 class="titulo-P-animais">Conheça Nossos Animais</h2>
+            <div class="container-animais" id="animais-vitrine">
+                <!-- Os cards de animais serão carregados dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="rodape">
+        <h4 class="texto-rodape">AdoPetz &copy; Todos os direitos reservados</h4>
+    </footer>
+</body>
+
+</html>

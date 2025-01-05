@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Images/Adopt 500x500.png" type="image/x-icon">
+    <title>Login - Adopetz</title>
+    <link rel="stylesheet" href="css/login.css"> <!-- Estilo opcional -->
+    <script>
+        function displayError(message) {
+            const errorDiv = document.getElementById('error-message');
+            errorDiv.innerText = message;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Adicionando a logo com link para a página inicial -->
+        <a href="home.html">
+            <img src="Images/Adopt 75x75.png" alt="Logo Adopetz" class="logo">
+        </a>        
+        <h2>Login</h2>
+        <div id="error-message" style="display: none; color: red;"></div>
+        <form id="login-form" action="/login" method="POST" onsubmit="return handleLogin(event)">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+            <a href="register.html">Registre-se</a>
+            <a href="redefinir-senha.html">Esqueceu a senha?</a>
+        </form>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({ email, senha })
+                });
+
+                if (response.status === 200) {
+                    window.location.href = '/home'; // Redireciona para a página principal após login bem-sucedido
+                } else if (response.status === 401) {
+                    displayError('Email ou senha incorretos, tente novamente.');
+                } else {
+                    displayError('Erro ao tentar fazer login. Por favor, tente novamente mais tarde.');
+                }
+            } catch (error) {
+                displayError('Erro de conexão. Por favor, verifique sua internet e tente novamente.');
+            }
+        }
+    </script>
+</body>
+</html>
+
+

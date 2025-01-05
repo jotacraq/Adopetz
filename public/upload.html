@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="Images/Adopt 500x500.png" type="image/x-icon">
+    <title>Cadastro de Animal</title>
+    <link rel="stylesheet" href="css/upload.css">
+    <script src="js/previewImage.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Adicionando a logo com link para a página inicial -->
+        <a href="home.html">
+            <img src="Images/Adopt 75x75.png" alt="Logo Adopetz" class="logo"> <!-- Adicione a classe logo aqui -->
+        </a>        
+        <h2 class="cadastro-title">Cadastro de Animal</h2>
+        
+        <!-- Mensagem de sucesso ou erro -->
+        <div id="mensagem" class="mensagem"></div> <!-- Div para mensagens -->
+
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="foto">Selecione a Foto:</label>
+            <input type="file" id="foto" name="foto" accept="image/*" onchange="previewAndSendImage()" required/>
+            
+            <label for="anuncioNome">Nome do Anúncio:</label>
+            <input type="text" id="anuncioNome" name="anuncioNome" placeholder="Nome do Anúncio" required/>
+            
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" placeholder="Descrição" required></textarea>
+            
+            <label for="raca">Raça:</label>
+            <input type="text" id="raca" name="raca" placeholder="Raça" required/>
+            
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dataNascimento" name="dataNascimento" required/>
+            
+            <label for="vacinado">Vacinado:</label>
+            <select id="vacinado" name="vacinado" required>
+                <option value="true">Sim</option>
+                <option value="false">Não</option>
+            </select>
+            
+            <label for="coloracao">Coloração:</label>
+            <input type="text" id="coloracao" name="coloracao" placeholder="Coloração" required/>
+            
+            <img id="preview" width="200" alt="Pré-visualização da imagem" />
+            <input type="submit" value="Cadastrar Animal"/>
+        </form>
+    </div>
+</body>
+</html>
