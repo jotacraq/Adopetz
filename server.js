@@ -342,38 +342,38 @@ const upload = multer({
 
 // Rota para upload de imagens e inserção de dados do animal
 app.post('/upload', upload.single('foto'), (req, res) => {
-  // Verifica se o ID do usuário existe na sessão
   if (!req.session.userId) {
-      console.log('Usuário não autenticado');
-      return res.status(401).send('Usuário não autenticado.');
+    console.log('Usuário não autenticado');
+    return res.status(401).send('Usuário não autenticado.');
   }
 
-  // Mostra o ID do usuário da sessão
   console.log('ID da sessão do usuário logado:', req.session.userId);
 
   const { anuncioNome, descricao, raca, dataNascimento, vacinado, coloracao } = req.body;
   const fotoCaminho = req.file.filename;
-  const usuarioId = req.session.userId; // Captura o ID do usuário logado da sessão
+  const usuarioId = req.session.userId;
 
   // Cálculo da idade
   const birthDate = new Date(dataNascimento);
   const currentDate = new Date();
   let age = currentDate.getFullYear() - birthDate.getFullYear();
-  
-  // Ajusta a idade caso o mês e dia atual sejam menores que o mês e dia de nascimento
-  const monthDiff = currentDate.getMonth() - birthDate.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && currentDate.getDate() < birthDate.getDate())) {
-      age--;
+
+  if (currentDate.getMonth() < birthDate.getMonth() || 
+     (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+    age--;
   }
+
+  // Ajuste do valor de vacinado (0 ou 1 para booleano no MySQL)
+  const vacinadoValue = vacinado === 'true' ? 1 : 0;
 
   const sql = `INSERT INTO animais (imagem_data, anuncio_nome, descricao, raca, data_nascimento, coloracao, vacinado, idade, usuario_id) 
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-  db.query(sql, [fotoCaminho, anuncioNome, descricao, raca, dataNascimento, coloracao, vacinado, age, usuarioId], (err) => {
-      if (err) {
-          console.error('Erro ao salvar os dados no banco de dados:', err);
-          return res.status(500).send('Erro ao salvar os dados no banco de dados.');
-      }
-      res.redirect('/catalogo.html');
+  db.query(sql, [fotoCaminho, anuncioNome, descricao, raca, dataNascimento, coloracao, vacinadoValue, age, usuarioId], (err) => {
+    if (err) {
+      console.error('Erro ao salvar os dados no banco de dados:', err);
+      return res.status(500).send('Erro ao salvar os dados no banco de dados.');
+    }
+    res.redirect('/catalogo.html');
   });
 });
 
@@ -647,12 +647,17 @@ app.delete('/api/meus_anuncios/:id', (req, res) => {
 // Rota para verificar se existe um chat já aberto para o animal entre o adotante e anunciante
 app.post('/api/verificar_chat', async (req, res) => {
   const { animal_id, adotante_id, anunciante_id } = req.body;
+
+  if (!animal_id || !adotante_id || !anunciante_id) {
+    return res.status(400).json({ message: 'Todos os campos (animal_id, adotante_id, anunciante_id) são obrigatórios.' });
+  }
+
   const sql = `SELECT id FROM chats WHERE animal_id = ? AND adotante_id = ? AND anunciante_id = ? LIMIT 1`;
 
   db.query(sql, [animal_id, adotante_id, anunciante_id], (err, results) => {
       if (err) {
           console.error('Erro ao verificar chat existente:', err);
-          return res.status(500).json({ message: 'Erro ao verificar chat.' });
+          return res.status(500).json({ message: 'Erro ao verificar chat. Por favor, tente novamente.' });
       }
       if (results.length > 0) {
           res.json({ chatId: results[0].id }); // Chat já existe
@@ -665,7 +670,11 @@ app.post('/api/verificar_chat', async (req, res) => {
 // Rota para verificar o papel do usuário no chat (anunciante ou adotante)
 app.get('/api/role_chat/:chatId', (req, res) => {
   const { chatId } = req.params;
-  const userId = req.query.userId;
+  const userId = req.session.userId; // Garantir que estamos usando o usuário logado
+
+  if (!userId) {
+    return res.status(401).json({ message: 'Usuário não autenticado.' });
+  }
 
   const sql = `
     SELECT 
@@ -681,13 +690,13 @@ app.get('/api/role_chat/:chatId', (req, res) => {
   db.query(sql, [userId, userId, chatId], (err, results) => {
     if (err) {
       console.error("Erro ao verificar o papel do usuário:", err);
-      return res.status(500).json({ message: 'Erro ao verificar papel do usuário.' });
+      return res.status(500).json({ message: 'Erro ao verificar papel do usuário. Tente novamente mais tarde.' });
     }
 
     if (results.length > 0) {
       res.json({ role: results[0].role });
     } else {
-      res.status(404).json({ message: 'Chat não encontrado.' });
+      res.status(404).json({ message: 'Chat não encontrado. Certifique-se de que o ID do chat está correto.' });
     }
   });
 });
@@ -696,10 +705,9 @@ app.get('/api/role_chat/:chatId', (req, res) => {
 app.post('/api/iniciar_chat', async (req, res) => {
   const { animal_id, adotante_id, anunciante_id } = req.body;
 
-  console.log('Requisição para criar chat:', req.body); // Verifique os valores que estão sendo recebidos
-
-  if (!anunciante_id) {
-    return res.status(400).json({ message: 'O campo anunciante_id é obrigatório.' });
+  // Verifique se os dados obrigatórios estão presentes
+  if (!animal_id || !adotante_id || !anunciante_id) {
+    return res.status(400).json({ message: 'Todos os campos (animal_id, adotante_id, anunciante_id) são obrigatórios.' });
   }
 
   const sql = `INSERT INTO chats (animal_id, adotante_id, anunciante_id) VALUES (?, ?, ?)`;
@@ -707,18 +715,20 @@ app.post('/api/iniciar_chat', async (req, res) => {
   db.query(sql, [animal_id, adotante_id, anunciante_id], (err, result) => {
       if (err) {
           console.error('Erro ao criar o chat:', err);
-          return res.status(500).json({ message: 'Erro ao criar o chat.' });
+          return res.status(500).json({ message: 'Erro ao criar o chat. Tente novamente mais tarde.' });
       }
       res.json({ chatId: result.insertId });
   });
 });
 
-
-/// Rota para obter todos os chats do usuário ativo
+// Rota para obter todos os chats do usuário ativo
 app.get('/api/meus_chats', checkLogin, (req, res) => {
   const userId = req.session.userId;
 
-  // Consulta SQL corrigida
+  if (!userId) {
+    return res.status(401).json({ message: 'Usuário não autenticado.' });
+  }
+
   const sql = `
       SELECT 
           c.id AS chat_id, 
@@ -739,7 +749,7 @@ app.get('/api/meus_chats', checkLogin, (req, res) => {
   db.query(sql, [userId, userId, userId], (err, results) => {
       if (err) {
           console.error('Erro ao buscar chats:', err);
-          return res.status(500).json({ message: 'Erro ao buscar os chats.' });
+          return res.status(500).json({ message: 'Erro ao buscar os chats. Tente novamente mais tarde.' });
       }
 
       // Atualizando a URL da imagem para apontar para a pasta 'uploads'
@@ -751,30 +761,50 @@ app.get('/api/meus_chats', checkLogin, (req, res) => {
   });
 });
 
+// Rota para enviar mensagem
+app.post('/api/mensagens', checkLogin, (req, res) => {
+  const { chatId, remetenteId, mensagem } = req.body;
+
+  if (!chatId || !remetenteId || !mensagem) {
+    return res.status(400).json({ message: 'Todos os campos (chatId, remetenteId, mensagem) são obrigatórios.' });
+  }
+
+  const sql = 'INSERT INTO mensagens (chat_id, remetente_id, mensagem, data_envio) VALUES (?, ?, ?, NOW())';
+  db.query(sql, [chatId, remetenteId, mensagem], (err, result) => {
+    if (err) {
+      console.error('Erro ao enviar mensagem:', err);
+      return res.status(500).json({ message: 'Erro ao enviar mensagem. Tente novamente mais tarde.' });
+    }
+
+    res.status(200).json({ message: 'Mensagem enviada com sucesso.' });
+  });
+});
+
 
 // Rota para obter as mensagens de um chat específico
 app.get('/api/mensagens/:chatId', checkLogin, (req, res) => {
   const chatId = req.params.chatId;
 
+  if (!chatId) {
+    return res.status(400).json({ message: 'O chatId é obrigatório.' });
+  }
+
   const sql = `SELECT remetente_id, mensagem, data_envio FROM mensagens WHERE chat_id = ? ORDER BY data_envio ASC`;
   db.query(sql, [chatId], (err, results) => {
       if (err) {
           console.error('Erro ao buscar mensagens do chat:', err);
-          return res.status(500).json({ message: 'Erro ao buscar mensagens do chat.' });
+          return res.status(500).json({ message: 'Erro ao buscar mensagens do chat. Tente novamente mais tarde.' });
       }
       res.json(results);
   });
 });
 
+// Rota para finalizar a venda
 app.post('/api/finalizar_venda', (req, res) => {
   const { chatId } = req.body;
 
-  console.log("Recebido pedido para finalizar venda. Chat ID:", chatId);
-
-  // Verificar se o chatId foi enviado
   if (!chatId) {
-    console.error("Erro: chatId não fornecido na requisição.");
-    return res.status(400).json({ message: 'Chat ID não fornecido.' });
+    return res.status(400).json({ message: 'O campo "chatId" é obrigatório para finalizar a venda.' });
   }
 
   // Obter dados do chat para identificar o animal e os usuários envolvidos
@@ -795,22 +825,15 @@ app.post('/api/finalizar_venda', (req, res) => {
   db.query(sqlChat, [chatId], (err, results) => {
     if (err) {
       console.error("Erro ao buscar dados do chat:", err);
-      return res.status(500).json({ message: 'Erro ao buscar dados do chat.' });
+      return res.status(500).json({ message: 'Erro ao buscar dados do chat. Tente novamente mais tarde.' });
     }
 
     if (results.length === 0) {
       console.error("Nenhum chat encontrado com o ID fornecido.");
-      return res.status(404).json({ message: "Chat não encontrado." });
+      return res.status(404).json({ message: "Nenhum chat encontrado com o ID fornecido." });
     }
 
     const { animal_nome, animal_raca, animal_id, adotante_id, anunciante_id } = results[0];
-    console.log("Dados do chat e do animal encontrados:", { animal_nome, animal_raca, adotante_id, anunciante_id });
-
-    // Verificar se o animal nome e raça foram encontrados corretamente
-    if (!animal_nome || !animal_raca) {
-      console.error("Erro: dados do animal não encontrados corretamente.");
-      return res.status(500).json({ message: 'Erro ao obter dados do animal.' });
-    }
 
     // Inserir dados na tabela de adoção
     const sqlAdocao = `
@@ -822,7 +845,7 @@ app.post('/api/finalizar_venda', (req, res) => {
     db.query(sqlAdocao, [animal_id, animal_nome, animal_raca, adotante_id, anunciante_id, adotante_id, anunciante_id], (adocaoErr, adocaoResult) => {
       if (adocaoErr) {
         console.error("Erro ao registrar adoção:", adocaoErr);
-        return res.status(500).json({ message: 'Erro ao registrar adoção.' });
+        return res.status(500).json({ message: 'Erro ao registrar adoção. Tente novamente mais tarde.' });
       }
 
       console.log("Adoção registrada com sucesso, ID da adoção:", adocaoResult.insertId);
@@ -831,7 +854,7 @@ app.post('/api/finalizar_venda', (req, res) => {
       db.query('SET FOREIGN_KEY_CHECKS = 0', (disableErr) => {
         if (disableErr) {
           console.error("Erro ao desativar verificações de chaves estrangeiras:", disableErr);
-          return res.status(500).json({ message: 'Erro ao desativar restrições de chaves estrangeiras.' });
+          return res.status(500).json({ message: 'Erro ao desativar verificações de chaves estrangeiras. Tente novamente mais tarde.' });
         }
 
         // Excluir apenas as mensagens associadas ao chat específico
@@ -839,7 +862,7 @@ app.post('/api/finalizar_venda', (req, res) => {
         db.query(deleteMessagesSql, [chatId], (deleteMessagesErr) => {
           if (deleteMessagesErr) {
             console.error("Erro ao excluir mensagens do chat:", deleteMessagesErr);
-            return res.status(500).json({ message: 'Erro ao excluir mensagens do chat.' });
+            return res.status(500).json({ message: 'Erro ao excluir mensagens do chat. Tente novamente mais tarde.' });
           }
 
           // Excluir o chat específico
@@ -847,14 +870,14 @@ app.post('/api/finalizar_venda', (req, res) => {
           db.query(deleteChatSql, [chatId], (deleteChatErr) => {
             if (deleteChatErr) {
               console.error("Erro ao excluir chat associado:", deleteChatErr);
-              return res.status(500).json({ message: 'Erro ao excluir chat associado.' });
+              return res.status(500).json({ message: 'Erro ao excluir o chat associado. Tente novamente mais tarde.' });
             }
 
             // Reativar verificações de chaves estrangeiras
             db.query('SET FOREIGN_KEY_CHECKS = 1', (enableErr) => {
               if (enableErr) {
                 console.error("Erro ao reativar verificações de chaves estrangeiras:", enableErr);
-                return res.status(500).json({ message: 'Erro ao reativar restrições de chaves estrangeiras.' });
+                return res.status(500).json({ message: 'Erro ao reativar verificações de chaves estrangeiras. Tente novamente mais tarde.' });
               }
 
               res.status(200).json({ message: 'Venda finalizada com sucesso. Chat e mensagens específicos excluídos.' });
@@ -885,5 +908,3 @@ app.get('/logout', (req, res) => {
 server.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
-
